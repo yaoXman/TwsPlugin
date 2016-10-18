@@ -71,3 +71,10 @@
 /TwsShareLib/bin/*.jar
 /TwsShareLib/gen/com/tencent/tws/assistant/services/*.java
 /TwsShareLib/gen/com/tencent/tws/sharelib/*.java
+/TwsPluginDemo/bin/*.apk
+/TwsPluginDemo/bin/*.dex
+/TwsPluginDemo/bin/res/drawable-hdpi/*.png
+/TwsPluginDemo/bin/res/drawable-mdpi/*.png
+/TwsPluginDemo/bin/res/drawable-xhdpi/*.png
+/TwsPluginDemo/bin/res/drawable-xxhdpi/*.png
+/TwsPluginDemo/bin/*.ap_

@@ -69,27 +69,24 @@
         <activity android:name=".DetailActivity" />
 
         <!-- 要展示插件中的fragment，所以配成插件进程 -->
-        <activity android:name=".TestFragmentActivity" />
+        <activity
+            android:name=".TestFragmentActivity"
+            android:process=":plugin" />
 
         <!-- 要展示插件中的皮肤，所以配成插件进程 -->
-        <activity android:name=".TestSkinActivity" />
+        <activity
+            android:name=".TestSkinActivity"
+            android:process=":plugin" />
 
         <!-- 要展示插件中的View，所以配成插件进程 -->
-        <activity android:name=".TestViewActivity" />
+        <activity
+            android:name=".TestViewActivity"
+            android:process=":plugin" />
 
         <!-- 要展示插件中的Activity，所以配成插件进程 -->
-        <activity android:name=".TestTabActivity" />
-
-        <!-- 微信插件需要支持外部唤起，所有需要在宿主中预注册一个跳板，intentfilte中的STUB_EXACT用来标记这是个跳板 -->
         <activity
-            android:name="com.tencent.tws.pluginhost.wxapi.WXEntryActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="com.tencent.tws.pluginhost.STUB_EXACT" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:name=".TestTabActivity"
+            android:process=":plugin" />
 
         <service android:name=".MainService" />
 
@@ -98,12 +95,14 @@
         <provider
             android:name="com.tws.plugin.core.manager.PluginManagerProvider"
             android:authorities="com.tencent.tws.pluginhost.manager.pluginmanager"
-            android:exported="false" />
+            android:exported="false"
+            android:process=":plugin" />
 
         <!-- 对Receiver的类全名没有要求，可随意指定，框架中是通过action来查询。注册1个即可 -->
         <receiver
             android:name="com.tencent.tws.pluginhost.stub.PluginStubReceiver"
-            android:exported="true" >
+            android:exported="true"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -116,37 +115,47 @@
             时处于运行状态的service数量，一般预注册十来个应该绰绰有余了)，
             这里的虚拟Service并不需要真实存在，
             只是占个位置，运行实动态绑定到实际的插件Service
-            对service的类全名没有要求，可随意指定，框架中是通过action来查询。
+            对service的类全名没有要求，可随意指定，框架中是通过action来查询。
         -->
-        <service android:name="com.tencent.tws.pluginhost.stub.PluginStubService1" >
+        <service
+            android:name="com.tencent.tws.pluginhost.stub.PluginStubService1"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        <service android:name="com.tencent.tws.pluginhost.stub.PluginStubService2" >
+        <service
+            android:name="com.tencent.tws.pluginhost.stub.PluginStubService2"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        <service android:name="com.tencent.tws.pluginhost.stub.PluginStubService3" >
+        <service
+            android:name="com.tencent.tws.pluginhost.stub.PluginStubService3"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        <service android:name="com.tencent.tws.pluginhost.stub.PluginStubService4" >
+        <service
+            android:name="com.tencent.tws.pluginhost.stub.PluginStubService4"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        <service android:name="com.tencent.tws.pluginhost.stub.PluginStubService5" >
+        <service
+            android:name="com.tencent.tws.pluginhost.stub.PluginStubService5"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -157,6 +166,7 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity0"
             android:exported="true"
+            android:process=":plugin"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
@@ -173,12 +183,13 @@
             这些虚拟Activity并不需要真实存在，
             （实际情况中注册的虚拟非standard的activity个数可以比插件中的非standard的activity总个数少。
             因为不太可能所有的插件activity都同时被唤起，每种非standard的注册十几个绰绰有余）
-            对Activity的类全名没有要求，可随意指定，框架中是通过action来查询。
+            对Activity的类全名没有要求，可随意指定，框架中是通过action来查询。
         -->
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity1"
             android:exported="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -188,7 +199,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity2"
             android:exported="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -198,7 +210,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity3"
             android:exported="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -208,7 +221,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity4"
             android:exported="true"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -218,7 +232,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity5"
             android:exported="true"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -228,7 +243,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity6"
             android:exported="true"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -238,7 +254,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity7"
             android:exported="true"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -248,7 +265,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity8"
             android:exported="true"
-            android:launchMode="singleInstance" >
+            android:launchMode="singleInstance"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -258,7 +276,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity9"
             android:exported="true"
-            android:launchMode="singleInstance" >
+            android:launchMode="singleInstance"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
@@ -268,7 +287,8 @@
         <activity
             android:name="com.tencent.tws.pluginhost.stub.PluginStubActivity10"
             android:exported="true"
-            android:launchMode="singleInstance" >
+            android:launchMode="singleInstance"
+            android:process=":plugin" >
             <intent-filter>
                 <action android:name="com.tencent.tws.pluginhost.STUB_DEFAULT" />
 
